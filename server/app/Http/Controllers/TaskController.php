@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Task\TaskRepositoryInterface;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    public function __construct()
+    /**
+     * @var TaskRepositoryInterface
+     */
+    protected  $taskRepository;
+
+    public function __construct(TaskRepositoryInterface $taskRepository)
     {
-        $this->middleware('auth');
+        $this->taskRepository = $taskRepository;
     }
 
     /**
@@ -18,17 +24,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->taskRepository->getAll();
     }
 
     /**
