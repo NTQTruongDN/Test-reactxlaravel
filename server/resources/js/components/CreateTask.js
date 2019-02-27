@@ -13,7 +13,6 @@ class CreateTask extends Component {
         this.setState({
             name: e.target.value
         });
-        console.log('onChange', this.state.name);
     }
 
     handleSubmit(e) {

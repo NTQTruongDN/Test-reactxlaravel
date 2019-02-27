@@ -17,11 +17,6 @@ abstract class AbstractRepository implements AbstractRepositoryInterface
         $this->model = $model;
     }
 
-    public function getAll($column = ['*'])
-    {
-        $this->model->get($column);
-    }
-
     /**
      * @inheritdoc
      */
@@ -44,5 +39,21 @@ abstract class AbstractRepository implements AbstractRepositoryInterface
     public function rollback()
     {
         DB::rollBack();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAll($column = ['*'])
+    {
+        $this->model->get($column);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function create(array $attributes)
+    {
+        $this->model->create($attributes);
     }
 }

@@ -61193,7 +61193,6 @@ function (_Component) {
       this.setState({
         name: e.target.value
       });
-      console.log('onChange', this.state.name);
     }
   }, {
     key: "handleSubmit",
@@ -61289,10 +61288,22 @@ function (_React$Component) {
       list_done: [],
       list_task: []
     };
+
+    _this.getListTask();
+
     return _this;
   }
 
   _createClass(ListTasks, [{
+    key: "getListTask",
+    value: function getListTask() {
+      axios.get('/tasks').then(function (res) {
+        console.log(res);
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

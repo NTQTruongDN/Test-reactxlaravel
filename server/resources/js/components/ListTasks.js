@@ -7,6 +7,18 @@ class ListTasks extends React.Component {
             list_done: [],
             list_task: []
         };
+
+        this.getListTask();
+    }
+
+    getListTask() {
+        axios.get('/tasks')
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     render() {

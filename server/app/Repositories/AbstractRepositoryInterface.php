@@ -2,15 +2,10 @@
 
 namespace App\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
+
 interface AbstractRepositoryInterface
 {
-    /**
-     * @param array $column
-     *
-     * @return mixed
-     */
-    public function getAll($column =['*']);
-
     /**
      * @return void
      */
@@ -25,4 +20,19 @@ interface AbstractRepositoryInterface
      * @return void
      */
     public function rollback();
+
+    /**
+     * @param array $column
+     *
+     * @return Collection[]|null
+     */
+    public function getAll($column = ['*']);
+
+    /**
+     * @param array $attributes
+     *
+     * @return Collection
+     * @throws \Exception
+     */
+    public function create(array $attributes);
 }
