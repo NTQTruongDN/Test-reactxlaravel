@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -46,6 +47,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof QueryException) {
+            var_dump($exception->getMessage());
+            return response()->json([
+                'code'    => 400,
+                'message' => 'Something went wrong',
+            ], 400);
+        }
         return parent::render($request, $exception);
     }
 }

@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Task\TaskRepositoryInterface;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    public function __construct()
+    /**
+     * @var TaskRepositoryInterface
+     */
+    protected $taskRepository;
+
+    public function __construct(TaskRepositoryInterface $taskRepository)
     {
-        $this->middleware('auth');
+        $this->taskRepository = $taskRepository;
     }
 
     /**
@@ -18,34 +24,33 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $tasks = $this->taskRepository->getAll();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json([
+            'code' => 200,
+            'data' => [
+                'tasks' => $tasks
+            ]
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-     dd($request);
+        dd($request);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -56,7 +61,8 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -67,8 +73,9 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -79,7 +86,8 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
